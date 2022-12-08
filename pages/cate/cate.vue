@@ -1,5 +1,6 @@
 <template>
 	<view>
+		<my-search @click.native="gotoSearch"></my-search>
 		<view class="scroll-view-container">
 			<!-- 左侧滑动区 -->
 			<scroll-view class="left-scroll-view" scroll-y="true" :style="{height:wh+'px'}">
@@ -46,7 +47,7 @@
 			//获取设备信息
 			let sysInfo = uni.getSystemInfoSync()
 			//设备屏幕的可用高度
-			this.wh = sysInfo.windowHeight
+			this.wh = sysInfo.windowHeight-50
 			
 			this.getCateList()
 		},
@@ -72,6 +73,12 @@
 			gotoGoodsList(item3){
 				uni.navigateTo({
 					url:'/subpkg/goods_list/goods_list?cid='+item3.cat_id
+				})
+			},
+			//跳转到搜索页面
+			gotoSearch(){
+				uni.navigateTo({
+					url:"/subpkg/search/search"
 				})
 			}
 		}
