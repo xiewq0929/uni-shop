@@ -65,7 +65,7 @@
 			this.queryObj.pagenum ++
 			this.getGoodsList()
 		},
-		//下来刷新
+		//下拉刷新
 		onPullDownRefresh(){
 			//重置关键数据
 			this.queryObj.pagenum=1

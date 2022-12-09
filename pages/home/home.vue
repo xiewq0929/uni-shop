@@ -69,14 +69,14 @@
 			async getSwiperList(){
 				let {data} = await uni.$http.get('/api/public/v1/home/swiperdata')
 				//如果请求失败
-				if(data.meta.status != 200) return uni.$showMsg()
+				if(data.meta.status !== 200) return uni.$showMsg()
 				//请求成功
 				this.swiperList = data.message
 			},
 			//获取分类导航数据的方法
 			async getNavList(){
 				let {data} = await uni.$http.get('/api/public/v1/home/catitems')
-				if(data.meta.status != 200) return uni.$showMsg()
+				if(data.meta.status !== 200) return uni.$showMsg()
 				this.navList = data.message
 			},
 			//点击分类导航的每一项的方法
@@ -90,7 +90,7 @@
 			//获取首页楼层数据的方法
 			async getFloorList(){
 				let {data} = await uni.$http.get('/api/public/v1/home/floordata')
-				if(data.meta.status != 200) return uni.$showMsg()
+				if(data.meta.status !== 200) return uni.$showMsg()
 				//对数据进行处理添加url属性
 				data.message.forEach(item => {
 					item.product_list.forEach(item2 => {
