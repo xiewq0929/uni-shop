@@ -30,7 +30,9 @@
 </template>
 
 <script>
+	import mix from '@/mixins/mixins.js'
 	export default {
+		mixins:[mix],
 		data() {
 			return {
 				//当前设备屏幕可用高度

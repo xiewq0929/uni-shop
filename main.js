@@ -2,7 +2,7 @@ import App from './App'
 
 // #ifndef VUE3
 import Vue from 'vue'
-
+import store from 'store/store.js'
 
 //导入网络请求的包
 import {$http} from '@escook/request-miniprogram'
@@ -34,7 +34,8 @@ uni.$showMsg = function(title='获取请求失败！',duration = 1500){
 Vue.config.productionTip = false
 App.mpType = 'app'
 const app = new Vue({
-    ...App
+    ...App,
+	store
 })
 app.$mount()
 // #endif

@@ -45,7 +45,9 @@
 </template>
 
 <script>
+	import mix from '@/mixins/mixins.js'
 	export default {
+		mixins:[mix],
 		data() {
 			return {
 				//这是轮播图的数据列表

@@ -34,6 +34,7 @@
 </template>
 
 <script>
+	import {mapState,mapMutations,mapGetters} from 'vuex'
 	export default {
 		data() {
 			return {
@@ -48,7 +49,7 @@
 					{
 						icon:'cart',
 						text:'购物车',
-						info: 2
+						info: 0
 					}
 				],
 				//右侧按钮组的配置
@@ -69,7 +70,6 @@
 		onLoad(options) {
 			const goods_id = options.goods_id
 			this.getGoodsDetail(goods_id)
-			
 		},
 		methods:{
 			async getGoodsDetail(id){
@@ -78,6 +78,7 @@
 				//使用字符串的replace()的替换方法，为img标签添加行内样式，从而解决图片底部空白间隙的问题。并把webp转为jpg格式。
 				data.message.goods_introduce = data.message.goods_introduce.replace(/<img /g, '<img style="display:block" ').replace(/webp/g,'jpg')
 				this.goods_info = data.message
+				console.log(this.goods_info);
 			},
 			//查看轮播图的图片方法
 			preview(index){
@@ -99,7 +100,37 @@
 			},
 			//右侧按钮的点击事件处理函数
 			buttonClick(e){
-				
+				if(e.content.text === '加入购物车'){
+					//组织商品信息对象
+					// { goods_id, goods_name, goods_price, goods_count, goods_small_logo, goods_state }
+					const goods = {
+						goods_id:this.goods_info.goods_id,
+						goods_name:this.goods_info.goods_name,
+						goods_price:this.goods_info.goods_price,
+						goods_count:1,
+						goods_small_logo:this.goods_info.goods_small_logo,
+						goods_state:true
+					}
+					//调用addToCart方法
+					this.addToCart(goods)
+				}
+			},
+			...mapMutations('m_cart',['addToCart'])
+		},
+		computed:{
+			...mapState('m_cart',[]),
+			...mapGetters('m_cart',['total'])
+		},
+		watch:{
+			//监听total的改变
+			total:{
+				immediate:true,
+				handler(newVal){
+					// 通过数组的 find() 方法，找到购物车按钮的配置对象
+					const result = this.options.find(item => item.text === '购物车')
+					// 动态为购物车按钮的 info 属性赋值
+					if(result) result.info = newVal
+				}
 			}
 		}
 	}
