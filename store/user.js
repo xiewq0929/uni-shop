@@ -6,6 +6,10 @@ export default {
   state: {
     //  读取本地的收货地址数据，初始化 address 对象
     address: JSON.parse(uni.getStorageSync('address') || '{}'),
+	// 登录成功之后的 token 字符串
+	token:'',
+	// 用户的基本信息
+	userinfo: JSON.parse(uni.getStorageSync('userinfo') || '{}')
   },
 
   // 方法
@@ -16,6 +20,11 @@ export default {
 		//本地存储address
 		uni.setStorageSync('address', JSON.stringify(state.address))
     },
+	 // 更新用户的基本信息
+	updateUserInfo(state, userinfo) {
+	    state.userinfo = userinfo
+		uni.setStorageSync('userinfo', JSON.stringify(state.userinfo))
+	},
   },
 
   // 数据包装器
